@@ -1,14 +1,25 @@
 <template>
-  <div  class="container">
+  <div class="container">
     <div class="header">WorkTime Record System</div>
     <div class="middle">
-      <div class="span">UserName:</div><input class="input" v-model="UserName" />
+      <div class="span">UserName:</div>
+      <input class="input" v-model="UserName" placeholder="用户名" />
     </div>
     <div class="middle">
-      <div class="span">Password:</div><input class="input" type='password' v-model="Password" />
+      <div class="span">Password:</div>
+      <input @keyup.enter="login" class="input" placeholder="密码" type="password" v-model="Password" />
     </div>
-    <div class="foot"><button class="button" v-bind:class="{'active':IsActive}"
-     @mouseleave="mouseLeave" @mouseover="mouseOver" @click="login">Login</button></div>
+    <div class="foot">
+      <button
+        class="button"
+        v-bind:class="{ active: IsActive }"
+        @mouseleave="mouseLeave"
+        @mouseover="mouseOver"
+        @click.left="login"
+      >
+        Login
+      </button>
+    </div>
   </div>
 </template>
 <script>
@@ -25,7 +36,10 @@ export default {
   methods: {
     login: function () {
       if (this.UserName === 'Jim' && this.Password === '123') {
-        this.$router.push({name: 'HelloWorld', params: {'userName': this.UserName}})
+        this.$router.push({
+          name: 'HelloWorld',
+          params: { userName: this.UserName }
+        })
       } else alert('wrong userName or Password')
     },
     mouseOver: function () {
@@ -47,7 +61,7 @@ export default {
   height: 240px;
   position: absolute;
   left: 30%;
-  top:20%;
+  top: 20%;
   border: 6px solid #a1a1a1;
   border-radius: 20px;
 }
@@ -56,7 +70,6 @@ export default {
   align-self: center;
   justify-self: center;
   font-family: "Times New Roman", Times, serif;
-
 }
 .middle {
   display: grid;
@@ -64,32 +77,31 @@ export default {
   align-items: center;
   justify-self: center;
   align-self: center;
-  width:250px;
+  width: 250px;
   /* margin-right: 35px;
       margin-bottom: 20px; */
-      border-radius: 5px 0px 0px 5px;
-    background: blue;
-
+  border-radius: 5px 0px 0px 5px;
+  background: blue;
 }
 .input {
-    width:150px
+  width: 150px;
 }
 .foot {
   justify-self: end;
   margin-right: 115px;
-  margin-top:10px;
+  margin-top: 10px;
 }
-.button.active{
-   opacity: 0.8;
-   border:5px;
-   }
-.button{
-    background: bule;
-    border:0px;
-    border-radius: 10px;
-    height: 28px;
-    width: 100px;
-    background: blue;
-    color: white;
+.button.active {
+  opacity: 0.8;
+  border: 5px;
+}
+.button {
+  background: bule;
+  border: 0px;
+  border-radius: 10px;
+  height: 28px;
+  width: 100px;
+  background: blue;
+  color: white;
 }
 </style>
