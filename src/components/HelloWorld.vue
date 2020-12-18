@@ -23,6 +23,10 @@
           {{ item.id }} {{ item.text }}
         </li>
       </ol>
+      <input v-model="foodInput"/>
+      <button @click="addFood">增加蔬菜种类</button>
+      <br/>
+
     </div>
   </div>
 </template>
@@ -39,10 +43,13 @@ export default {
         { id: 1, text: 'Cheese' },
         { id: 2, text: 'Whatever else humans are supposed to eat' }
       ],
+      curNode: 3,
       FirstName: 'Bob',
       LastName: 'Jhon',
       FullName: ' Bob Jhon',
-      rawHtml: 'This is From DataBinding'
+      rawHtml: 'This is From DataBinding',
+      foodInput: '',
+      checkNames: []
     }
   },
   computed: {
@@ -53,6 +60,13 @@ export default {
   methods: {
     reverse: function () {
       this.PMessage = this.PMessage.split('').reverse().join('')
+    },
+    addFood: function () {
+      if (this.foodInput === '') return
+      for (var i = 0; i < this.groceryList.length; i++) {
+        if (this.groceryList[i].text === this.foodInput) return
+      }
+      this.groceryList.push({id: this.curNode++, text: this.foodInput})
     }
   },
   watch: {
