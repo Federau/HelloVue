@@ -26,7 +26,8 @@
       <input v-model="foodInput"/>
       <button @click="addFood">增加蔬菜种类</button>
       <br/>
-
+      <router-link to='/repeatButton'> LinkToRepeatButton</router-link>
+      <p>{{userName}}</p>
     </div>
   </div>
 </template>
@@ -52,6 +53,9 @@ export default {
       checkNames: []
     }
   },
+  props: [
+    'userName'
+  ],
   computed: {
     reverseMessage: function () {
       return this.FullName.split('').reverse().join('')

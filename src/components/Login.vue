@@ -35,12 +35,9 @@ export default {
   },
   methods: {
     login: function () {
-      if (this.UserName === 'Jim' && this.Password === '123') {
-        this.$router.push({
-          name: 'HelloWorld',
-          params: { userName: this.UserName }
-        })
-      } else alert('wrong userName or Password')
+      this.$router.push({
+        name: 'Dashboard',
+        params: { userName: this.UserName }})
     },
     mouseOver: function () {
       this.IsActive = true
@@ -55,14 +52,14 @@ export default {
 .container {
   display: grid;
   grid-template-rows: 35% 50px 50px 50%;
-  background: black;
+  background: rgb(172, 173, 238);
   color: white;
   width: 500px;
   height: 240px;
   position: absolute;
   left: 30%;
   top: 20%;
-  border: 6px solid #a1a1a1;
+  border: 6px solid #bed7e7;
   border-radius: 20px;
 }
 .header {
