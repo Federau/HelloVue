@@ -10,10 +10,7 @@
 </template>
 <style scoped>
 .container {
-  background:orange;
   height: 60px;
-  /* display: flex;
-  justify-content: center; */
 }
 </style>
 <script>
@@ -28,10 +25,10 @@ export default {
   float: right;
   font-size: 10px;
   margin-right: 20px;
-  margin-top: -10px;
+  margin-top: -15px;
 }
 .title {
-  font-size: 36px;
+  font-size: 26px;
   text-align: center;
   clear: both;
 }

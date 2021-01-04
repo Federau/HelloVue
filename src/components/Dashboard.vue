@@ -4,7 +4,7 @@
       <head-content v-bind:userName="UserName"> </head-content>
     </el-header>
     <el-container>
-      <el-aside width="200px">
+      <!-- <el-aside width="200px">
         <el-tree
           :data="data"
           :props="defaultProps"
@@ -14,23 +14,21 @@
           @node-click="handleNodeClick"
         >
         </el-tree>
-      </el-aside>
+      </el-aside> -->
       <el-container>
         <el-header>
           <el-menu
             mode="horizontal"
-            active-text-color="orange"
-            @select="handleSelect"
-             >
-            <el-menu-item index="1">查询工作</el-menu-item>
+            @select="handleSelect">
+            <el-menu-item index="1">工作记录</el-menu-item>
             <el-submenu mode="vertical">
               <template slot="title">
-                <span slot="title">工作项目</span>
+                <span slot="title">工作项管理</span>
               </template>
               <el-menu-item-group>
                 <el-menu-item index="1-1">工作大类</el-menu-item>
                 <el-menu-item index="1-2">工作小类</el-menu-item>
-                <el-menu-item index="1-3">记录工作</el-menu-item>
+                <el-menu-item index="1-3">工作任务</el-menu-item>
               </el-menu-item-group>
             </el-submenu>
             <el-menu-item index="3">工作报表</el-menu-item>
@@ -42,7 +40,9 @@
         </el-main>
       </el-container>
     </el-container>
-    <el-footer>Footer</el-footer>
+    <el-footer v-if="false">
+      <a href="http://www.estun.com/" target="_blank" style="font-size:18px"> 埃斯顿自动化控制有限公司@CopyRight  </a>
+    </el-footer>
   </el-container>
 </template>
 <style>
@@ -50,22 +50,15 @@
   min-width: 120px!important;
 }
 .el-header {
-  background: orange;
+  /* background: orange; */
   padding-left: 0px;
   padding-right: 0px;
-}
-.el-aside {
-  background: orange;
-  min-height: 600px;
-}
-.el-tree{
-  background-color: orange;
-}
-.el-main {
-  background: coral;
+  max-height: 40px;
 }
 .el-footer {
-  background: cyan;
+  /* background: orange; */
+  height:40px;
+  max-height: 40px;
 }
 </style>
 <script>
@@ -91,11 +84,11 @@ export default {
                   children: [
                     {
                       id: 4,
-                      label: '李宏'
+                      label: 'Jim'
                     },
                     {
                       id: 5,
-                      label: '周青'
+                      label: 'Tom'
                     }
                   ]
                 },
@@ -139,6 +132,9 @@ export default {
         case '1': path = '/main'; break
         case '3': path = '/main/report'; break
         case '4': path = '/main/handleRegister'; break
+        case '1-1':path = '/main/firstWorkLevelDef'; break
+        case '1-2':path = '/main/secondWorkLevelDef'; break
+        case '1-3':path = '/main/taskDefinition'; break
         default:return
       }
       this.$router.push(path)
@@ -146,6 +142,8 @@ export default {
   },
   mounted () {
     this.UserName = this.$route.params.userName
+    document.title = '工时统计系统'
+    this.handleSelect('1')
   }
 }
 </script>

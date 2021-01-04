@@ -3,19 +3,21 @@ import Router from 'vue-router'
 import Login from '@/components/Login'
 import HelloWorld from '@/components/HelloWorld'
 import NotFound from '@/components/NotFound'
-import RepeatComponent from '@/components/RepeatComponent'
 import Dashboard from '@/components/Dashboard'
 import WorkQuery from '@/components/WorkQuery'
 import WorkReport from '@/components/WorkReport'
 import HandleRegister from '@/components/HandleRegister'
+import WorkItemFirstLevel from '@/components/WorkItemFirstLevelDefinition'
+import WorkItemSecondLevel from '@/components/WorkItemSecondLevelDefinition'
+import WorkTaskDefinition from '@/components/WorkTaskDefinition'
 Vue.use(Router)
-
 export default new Router({
   routes: [
     {
       path: '/',
       name: 'Login',
-      component: Login
+      component: Login,
+      meta: {title: '登录'}
     },
     {
       path: '/hello',
@@ -40,17 +42,30 @@ export default new Router({
           }
         },
         {
+          path: 'firstWorkLevelDef',
+          components: {
+            mainArea: WorkItemFirstLevel
+          }
+        },
+        {
+          path: 'secondWorkLevelDef',
+          components: {
+            mainArea: WorkItemSecondLevel
+          }
+        },
+        {
+          path: 'taskDefinition',
+          components: {
+            mainArea: WorkTaskDefinition
+          }
+        },
+        {
           path: '/',
           components: {
             mainArea: WorkQuery
           }
         }
       ]
-    },
-    {
-      path: '/repeatButton',
-      name: 'RepeatComponent',
-      component: RepeatComponent
     },
     {
       path: '*',
