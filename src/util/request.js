@@ -1,30 +1,35 @@
 
 // 导入axios
 import axios from 'axios'
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
 // 使用element-ui Message做消息提醒
 import { Message } from 'element-ui'
 // 1. 创建新的axios实例，
 const request = axios.create({
-  baseURL: 'api',
+  baseURL: '/api',
   withCredentials: false, // 表示跨域请求时是否需要使用凭证
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-  },
+  // headers: {
+  //   'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+  // },
   timeout: 3 * 1000
 })
 // 2.请求拦截器
 request.interceptors.request.use(config => {
   // 发请求前做的一些处理，数据转化，配置请求头，设置token,设置loading等，根据需求去添加
-  config.data = JSON.stringify(config.data) // 数据转化,也可以使用qs转换
-  config.headers = {
-    'Content-Type': 'application/x-www-form-urlencoded' // 配置请求头
-  }
+  // config.data = JSON.stringify(config.data) // 数据转化,也可以使用qs转换
+  // config.headers = {
+  // 'Content-Type' : 'application/json' // 配置请求头
+  // }
   // 注意使用token的时候需要引入cookie方法或者用本地localStorage等方法，推荐js-cookie
-  const token = Cookies.get('etoken')// 这里取token之前，你肯定需要先拿到token,存一下
+  // const token = Cookies.get('etoken')// 这里取token之前，你肯定需要先拿到token,存一下
+  const token = localStorage.getItem('etoken')
+  const currentUser = localStorage.getItem('currentUser')
   if (token) {
-    config.params = { 'token': token } // 如果要求携带在参数中
-    config.headers.token = token // 如果要求携带在请求头中
+    // config.params = { 'token': token } // 如果要求携带在参数中
+    config.headers.Authorization = token // 如果要求携带在请求头中
+  }
+  if (currentUser) {
+    config.headers.User = currentUser
   }
   return config
 }, error => {
@@ -33,8 +38,10 @@ request.interceptors.request.use(config => {
 
 // 3.响应拦截器
 request.interceptors.response.use(response => {
+  if (response.headers.Authorization) {
+    localStorage.setItem('etoken', response.headers.Authorization)
+  }
   // 接收到响应数据并成功后的一些共有的处理，关闭loading等
-
   return response
 }, error => {
   /** *** 接收到异常响应的处理开始 *****/

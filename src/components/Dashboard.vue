@@ -45,7 +45,7 @@
     </el-footer>
   </el-container>
 </template>
-<style>
+<style >
 .el-menu--collapse .el-menu .el-submenu, .el-menu--popup{
   min-width: 120px!important;
 }
@@ -141,7 +141,8 @@ export default {
     }
   },
   mounted () {
-    this.UserName = this.$route.params.userName
+    var user = JSON.parse(localStorage.getItem('currentUser'))
+    this.UserName = user.Name
     document.title = '工时统计系统'
     this.handleSelect('1')
   }

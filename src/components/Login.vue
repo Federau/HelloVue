@@ -20,8 +20,8 @@
   </el-card>
 </template>
 <script>
-// import api from '@/util/api'
-// import axios from 'axios'
+import http from '@/util/http'
+import { Message } from 'element-ui'
 export default {
   name: 'Login',
   data () {
@@ -34,35 +34,26 @@ export default {
   },
   methods: {
     login: function () {
-      // const request = axios.create({
-      //   baseURL: '/api',
-      //   withCredentials: false, // 表示跨域请求时是否需要使用凭证
-      //   headers: {
-      //     timeout: 10000
-      //     // 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-      //     // 'Content-Type': 'application/json'
-      //   },
-      //   timeout: 3 * 1000
-      // })
-      // request.get('/login').then(response => {
-      //   alert(JSON.stringify(response.data))
-      // }).catch(error => {
-      //   alert(JSON.stringify(error))
-      // })
-      // var user = {
-      //   Name: this.UserName, Password: this.Password
-      // }
-      // request.post('/login', user)
-      //   .then(response => {
-      //     alert(JSON.stringify(response.data))
-      //   }).catch(error => {
-      //     alert(JSON.stringify(error))
-      //   })
-      this.$router.push({
-        name: 'Dashboard',
-        params: {
-          userName: this.UserName
+      var user = {
+        Name: this.UserName, UserPassword: this.Password
+      }
+      http.post('/login/login', user).then(response => {
+        if (response && response.data && response.data.Success) {
+          Message.success('登录成功')
+          console.log(JSON.stringify(response.data))
+          localStorage.setItem('etoken', 'bearer ' + response.data.Extra.TokenStr)
+          localStorage.setItem('currentUser', JSON.stringify(response.data.Data))
+          this.$router.push({
+            name: 'Dashboard',
+            params: {
+              userName: this.UserName
+            }
+          })
+        } else {
+          Message.error(response.data.Message)
         }
+      }).catch(error => {
+        Message.error(JSON.stringify(error))
       })
     },
     mouseOver: function () {
@@ -82,8 +73,8 @@ export default {
 .boxCard{
   max-width: 400px;
   min-height: 280px;
-  margin-top:80px;
-  margin-left:30%
+  margin-top:10%;
+  margin-left:35%
 }
 .el-button{
   min-width:100px;
