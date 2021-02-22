@@ -50,7 +50,7 @@ export default {
             }
           })
         } else {
-          Message.error(response.data.Message)
+          Message.error('登录失败')
         }
       }).catch(error => {
         Message.error(JSON.stringify(error))

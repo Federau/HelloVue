@@ -60,6 +60,9 @@ export default {
     }
   },
   methods: {
+    onCancel () {
+      this.$emit('Cancel')
+    },
     onSubmit: function () {
       var obj = this.model.editModel
       // obj.FirstWorkDefineName.trim()
